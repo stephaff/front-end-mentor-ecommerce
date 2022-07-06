@@ -39,4 +39,93 @@ function selectedImage(){
     imageOrigin.src = 'images/' + image;
 }
 
+let navbarCart = document.querySelector('.navbar-cart img');
 
+navbarCart.addEventListener('click', viewCart);
+
+function viewCart(){
+    cartContentDisplay();
+    document.querySelector('.navbar-right-cart').classList.toggle('view-cart');
+}
+
+let links = document.querySelectorAll('.navbar-links a');
+
+links.forEach(link => {
+    link.addEventListener('click', selectedLink);
+});
+
+function selectedLink(){
+    links.forEach(link => {
+        link.classList.remove('selected-link');
+    });
+    this.classList.add('selected-link');
+}
+
+let boutonPlus = document.querySelector('.bouton-plus');
+
+boutonPlus.addEventListener('click', increaseQuantity);
+
+function increaseQuantity(){
+    let quantity = this.previousElementSibling;
+    console.log(quantity);
+    quantity.innerHTML = parseInt(quantity.innerHTML)+1;
+    console.log(quantity);
+}
+
+let boutonMoins = document.querySelector('.bouton-moins');
+
+boutonMoins.addEventListener('click', decreaseQuantity);
+
+function decreaseQuantity(){
+    let quantity = this.nextElementSibling;
+    if(parseInt(quantity.innerHTML)>0){
+        quantity.innerHTML = parseInt(quantity.innerHTML)-1;
+    }
+}
+
+let boutonCommande = document.querySelector('.command');
+
+boutonCommande.addEventListener('click', passerCommande);
+
+function passerCommande(){
+    let quantity = document.querySelector('.quantity span');
+    let cartQuantity = document.querySelector('.cart-quantity');
+    cartQuantity.innerHTML = quantity.innerHTML;
+    let cartPrice = document.querySelector('.cart-price');
+    let cartSold = document.querySelector('.cart-sold');
+    cartPrice.innerHTML = '$'+parseFloat(cartSold.innerHTML.substring(1, 7))*parseFloat(cartQuantity.innerHTML)+'.00';
+    cartContentDisplay();
+}
+
+function cartContentDisplay(){
+    let cartQuantity = document.querySelector('.cart-quantity');
+    let cartEmpty = document.querySelector('.navbar-right-cart-content-empty');
+    let cartFill = document.querySelector('.navbar-right-cart-content-fill');
+    if(parseInt(cartQuantity.innerHTML)>0){
+        cartEmpty.classList.add('cart-empty');
+        cartFill.classList.add('cart-fill');
+    }   
+    else{
+        cartEmpty.classList.remove('cart-empty');
+        cartFill.classList.remove('cart-fill');
+        cartEmpty.classList.add('cart-fill');
+        cartFill.classList.add('cart-empty');
+    }
+}
+
+let deleteButton = document.querySelector('.delete-button');
+
+deleteButton.addEventListener('click', viderPanier);
+
+function viderPanier(){
+    let cartQuantity = document.querySelector('.cart-quantity');
+    let quantity = document.querySelector('.quantity span');
+    let cartEmpty = document.querySelector('.navbar-right-cart-content-empty');
+    let cartFill = document.querySelector('.navbar-right-cart-content-fill');
+    cartEmpty.classList.remove('cart-empty');
+    cartFill.classList.remove('cart-fill');
+    cartEmpty.classList.add('cart-fill');
+    cartFill.classList.add('cart-empty');
+    quantity.innerHTML = 0;
+    cartQuantity.innerHTML = quantity.innerHTML;
+}
