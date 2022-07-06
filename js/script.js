@@ -39,7 +39,7 @@ function selectedImage(){
     imageOrigin.src = 'images/' + image;
 }
 
-let navbarCart = document.querySelector('.navbar-cart img');
+let navbarCart = document.querySelector('.navbar-cart');
 
 navbarCart.addEventListener('click', viewCart);
 
@@ -88,9 +88,11 @@ let boutonCommande = document.querySelector('.command');
 boutonCommande.addEventListener('click', passerCommande);
 
 function passerCommande(){
+    let quantiteCommande = document.querySelector('.quantite-commande');
     let quantity = document.querySelector('.quantity span');
     let cartQuantity = document.querySelector('.cart-quantity');
     cartQuantity.innerHTML = quantity.innerHTML;
+    quantiteCommande.innerHTML = quantity.innerHTML;
     let cartPrice = document.querySelector('.cart-price');
     let cartSold = document.querySelector('.cart-sold');
     cartPrice.innerHTML = '$'+parseFloat(cartSold.innerHTML.substring(1, 7))*parseFloat(cartQuantity.innerHTML)+'.00';
@@ -98,12 +100,17 @@ function passerCommande(){
 }
 
 function cartContentDisplay(){
+    let quantiteCommande = document.querySelector('.quantite-commande');
     let cartQuantity = document.querySelector('.cart-quantity');
     let cartEmpty = document.querySelector('.navbar-right-cart-content-empty');
     let cartFill = document.querySelector('.navbar-right-cart-content-fill');
     if(parseInt(cartQuantity.innerHTML)>0){
+        cartEmpty.classList.remove('cart-empty');
+        cartFill.classList.remove('cart-fill');
         cartEmpty.classList.add('cart-empty');
         cartFill.classList.add('cart-fill');
+        quantiteCommande.classList.add('display-quantity');
+        beep();
     }   
     else{
         cartEmpty.classList.remove('cart-empty');
@@ -118,6 +125,7 @@ let deleteButton = document.querySelector('.delete-button');
 deleteButton.addEventListener('click', viderPanier);
 
 function viderPanier(){
+    let quantiteCommande = document.querySelector('.quantite-commande');
     let cartQuantity = document.querySelector('.cart-quantity');
     let quantity = document.querySelector('.quantity span');
     let cartEmpty = document.querySelector('.navbar-right-cart-content-empty');
@@ -128,4 +136,18 @@ function viderPanier(){
     cartFill.classList.add('cart-empty');
     quantity.innerHTML = 0;
     cartQuantity.innerHTML = quantity.innerHTML;
+    quantiteCommande.classList.remove('display-quantity');
+    deleted();
+}
+
+function beep(){
+    let monBeep = new Audio();
+    monBeep.src = 'audio/alert.wav';
+    monBeep.play();
+}
+
+function deleted(){
+    let emptyTrash = new Audio();
+    emptyTrash.src = 'audio/delete.wav';
+    emptyTrash.play();
 }
