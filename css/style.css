@@ -60,8 +60,8 @@ header{
 }
 .quantite-commande{
     display: none;
-    position: relative;
-    top: 7px;
+    position: absolute;
+    top: -12px;
     left: 8px;
     color: var(--blanc);
     font-size: 12px;
@@ -88,6 +88,8 @@ header{
     }
 }
 .navbar-cart{
+    position: relative;
+    top: 0px;
     cursor: pointer;
 }
 .navbar-avatar{

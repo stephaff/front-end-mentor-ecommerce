@@ -67,7 +67,6 @@ boutonPlus.addEventListener('click', increaseQuantity);
 
 function increaseQuantity(){
     let quantity = this.previousElementSibling;
-    console.log(quantity);
     quantity.innerHTML = parseInt(quantity.innerHTML)+1;
     console.log(quantity);
 }
