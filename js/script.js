@@ -48,19 +48,6 @@ function viewCart(){
     document.querySelector('.navbar-right-cart').classList.toggle('view-cart');
 }
 
-let links = document.querySelectorAll('.navbar-links a');
-
-links.forEach(link => {
-    link.addEventListener('click', selectedLink);
-});
-
-function selectedLink(){
-    links.forEach(link => {
-        link.classList.remove('selected-link');
-    });
-    this.classList.add('selected-link');
-}
-
 let boutonPlus = document.querySelector('.bouton-plus');
 
 boutonPlus.addEventListener('click', increaseQuantity);
@@ -149,4 +136,37 @@ function deleted(){
     let emptyTrash = new Audio();
     emptyTrash.src = 'audio/delete.wav';
     emptyTrash.play();
+}
+
+let buttonNext = document.querySelector('.button-next');
+
+buttonNext.addEventListener('click', nextImage);
+let count = 1;
+
+function nextImage(){
+    let imagePathTab = ['image-product-1.jpg', 'image-product-2.jpg', 'image-product-3.jpg', 'image-product-4.jpg'];
+    let imageDisplay = document.querySelector('.main-left-image img');
+    if(count<imagePathTab.length){
+        imageDisplay.src = 'images/'+imagePathTab[count];
+        count = count + 1;
+        console.log(count);
+        if(count == imagePathTab.length){
+            buttonNext.classList.add('button-next-display');
+        }
+    }  
+}
+
+let buttonPrevious = document.querySelector('.button-previous');
+
+buttonPrevious.addEventListener('click', previousImage);
+
+function previousImage(){
+    buttonNext.classList.remove('button-next-display');
+    let imagePathTab = ['image-product-1.jpg', 'image-product-2.jpg', 'image-product-3.jpg', 'image-product-4.jpg'];
+    let imageDisplay = document.querySelector('.main-left-image img');
+    let tampon = count - 1;
+    if(tampon > 0){
+        imageDisplay.src = 'images/'+imagePathTab[tampon-1];
+        count = count - 1;
+    } 
 }
