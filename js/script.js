@@ -55,7 +55,6 @@ boutonPlus.addEventListener('click', increaseQuantity);
 function increaseQuantity(){
     let quantity = this.previousElementSibling;
     quantity.innerHTML = parseInt(quantity.innerHTML)+1;
-    console.log(quantity);
 }
 
 let boutonMoins = document.querySelector('.bouton-moins');
@@ -149,7 +148,6 @@ function nextImage(){
     if(count<imagePathTab.length){
         imageDisplay.src = 'images/'+imagePathTab[count];
         count = count + 1;
-        console.log(count);
         if(count == imagePathTab.length){
             buttonNext.classList.add('button-next-display');
         }
